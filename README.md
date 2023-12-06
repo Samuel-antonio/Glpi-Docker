@@ -6,8 +6,8 @@ Instale e execute uma instância GLPI com docker
 
 More info in the 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
 
-| Login/Password     	| Role              	|
-|--------------------	|-------------------	|
+| Usuário/Senha     	|      Função        	|
+|---------------------|---------------------|
 | glpi/glpi          	| admin account     	|
 | tech/tech          	| technical account 	|
 | normal/normal      	| "normal" account  	|
@@ -15,7 +15,7 @@ More info in the 📄[Documentação](https://glpi-install.readthedocs.io/en/lat
 
 # Implantar com CLI
 
-## Deploy GLPI 
+### Deploy GLPI 
 ```sh
 docker run --name mariadb -e MARIADB_ROOT_PASSWORD=diouxx -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi -d mariadb:10.7
 docker run --name glpi --link mariadb:mariadb -p 80:80 -d diouxx/glpi
