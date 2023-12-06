@@ -1,33 +1,10 @@
-# Project to deploy GLPI with docker
+# Introdução
 
-![Docker Pulls](https://img.shields.io/docker/pulls/diouxx/glpi) ![Docker Stars](https://img.shields.io/docker/stars/diouxx/glpi) [![](https://images.microbadger.com/badges/image/diouxx/glpi.svg)](http://microbadger.com/images/diouxx/glpi "Get your own image badge on microbadger.com") ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/diouxx/glpi)
-
-# Table of Contents
-- [Project to deploy GLPI with docker](#project-to-deploy-glpi-with-docker)
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-  - [Default accounts](#default-accounts)
-- [Deploy with CLI](#deploy-with-cli)
-  - [Deploy GLPI](#deploy-glpi)
-  - [Deploy GLPI with existing database](#deploy-glpi-with-existing-database)
-  - [Deploy GLPI with database and persistence data](#deploy-glpi-with-database-and-persistence-data)
-  - [Deploy a specific release of GLPI](#deploy-a-specific-release-of-glpi)
-- [Deploy with docker-compose](#deploy-with-docker-compose)
-  - [Deploy without persistence data ( for quickly test )](#deploy-without-persistence-data--for-quickly-test-)
-  - [Deploy a specific release](#deploy-a-specific-release)
-  - [Deploy with persistence data](#deploy-with-persistence-data)
-    - [mariadb.env](#mariadbenv)
-    - [docker-compose .yml](#docker-compose-yml)
-- [Environnment variables](#environnment-variables)
-  - [TIMEZONE](#timezone)
-
-# Introduction
-
-Install and run an GLPI instance with docker
+Instale e execute uma instância GLPI com docker
 
 ## Default accounts
 
-More info in the 📄[Docs](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
+More info in the 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
 
 | Login/Password     	| Role              	|
 |--------------------	|-------------------	|
@@ -36,7 +13,7 @@ More info in the 📄[Docs](https://glpi-install.readthedocs.io/en/latest/instal
 | normal/normal      	| "normal" account  	|
 | post-only/postonly 	| post-only account 	|
 
-# Deploy with CLI
+# Implantar com CLI
 
 ## Deploy GLPI 
 ```sh
