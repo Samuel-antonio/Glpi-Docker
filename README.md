@@ -17,7 +17,7 @@ Mais informações no 📄[Documentação](https://glpi-install.readthedocs.io/e
 
 ### Deploy GLPI 
 ```sh
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD=8Yqvj/W]!Hd2gKku -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5 -d mariadb:10.7
+docker run --name mariadb -e MARIADB_ROOT_PASSWORD=c -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5 -d mariadb:10.7
 docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi
 ```
 
@@ -44,7 +44,7 @@ docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/w
 
 
 
-## Implante uma versão específica do GLPI
+### Implante uma versão específica do GLPI
 Padrão, docker run usará a versão mais recente do GLPI.
 Para uso em ambiente de produção, é recomendado definir uma versão específica.
 Aqui está um exemplo para a versão 9.1.6:
@@ -53,9 +53,10 @@ Aqui está um exemplo para a versão 9.1.6:
 docker run --name glpi --hostname glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 --env "VERSION_GLPI=9.1.6" -d samuelantonio512/glpi
 ```
 
-# Deploy with docker-compose
+#Implantar com docker-compose
 
-## Deploy without persistence data ( for quickly test )
+### Implante sem dados de persistência (para teste rápido)
+
 ```yaml
 version: "3.8"
 
@@ -66,7 +67,7 @@ services:
     container_name: mariadb
     hostname: mariadb
     environment:
-      - MARIADB_ROOT_PASSWORD=password
+      - MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5
       - MARIADB_DATABASE=glpi
       - MARIADB_USER=glpi
       - MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
@@ -159,29 +160,27 @@ services:
     restart: always
 ```
 
-To deploy, just run the following command on the same directory as files
+Para implantar, basta executar o seguinte comando no mesmo diretório dos arquivos
 
 ```sh
 docker-compose up -d
 ```
 
-# Environnment variables
+# Variáveis ​​de ambiente
 
-## TIMEZONE
-If you need to set timezone for Apache and PHP
+### FUSO HORÁRIO
+Se você precisar definir o fuso horário para Apache e PHP
 
-From commande line
+Da linha de comando
 ```sh
 docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=Europe/Brussels" -d samuelantonio512/glpi
 ```
 
-From docker-compose
+Do docker-compose
 
-Modify this settings
+Modifique estas configurações
 ```yaml
 environment:
      TIMEZONE=America/Sao_Paulo
 ```
-"# glpi" 
-"# glpi" 
 
