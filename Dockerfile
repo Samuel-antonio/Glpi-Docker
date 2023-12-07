@@ -46,3 +46,5 @@ ENTRYPOINT ["/opt/glpi-start.sh"]
 
 #Exposition des ports
 EXPOSE 80 443
+
+
