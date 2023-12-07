@@ -42,12 +42,13 @@ docker run --name mariadb -e MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5 -e MARIADB_D
 docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi
 ```
 
-Enjoy :)
 
-## Deploy a specific release of GLPI
-Default, docker run will use the latest release of GLPI.
-For an usage on production environnement, it's recommanded to set specific release.
-Here an example for release 9.1.6 :
+
+## Implante uma versão específica do GLPI
+Padrão, docker run usará a versão mais recente do GLPI.
+Para uso em ambiente de produção, é recomendado definir uma versão específica.
+Aqui está um exemplo para a versão 9.1.6:
+
 ```sh
 docker run --name glpi --hostname glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 --env "VERSION_GLPI=9.1.6" -d samuelantonio512/glpi
 ```
@@ -107,10 +108,10 @@ services:
       - "8080:80"
 ```
 
-## Deploy with persistence data
+## Implante com dados de persistência
 
-To deploy with docker compose, you use *docker-compose.yml* and *mariadb.env* file.
-You can modify **_mariadb.env_** to personalize settings like :
+Para implantar com docker compose, você usa os arquivos *docker-compose.yml* e *mariadb.env*.
+Você pode modificar **_mariadb.env_** para personalizar configurações como:
 
 * MariaDB root password
 * GLPI database
