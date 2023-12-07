@@ -26,3 +26,4 @@ services:
     environment:
       - TIMEZONE=Europe/Brussels
     restart: always
+    
