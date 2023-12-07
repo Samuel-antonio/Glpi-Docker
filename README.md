@@ -4,7 +4,7 @@ Instale e execute uma instância GLPI com docker
 
 ## Contas padrão
 
-Mais informações no 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
+Mais informações na 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
  ___________________________________________
 | Usuário/Senha     	|      Função        	|
 |---------------------|---------------------|
@@ -53,7 +53,7 @@ Aqui está um exemplo para a versão 9.1.6:
 docker run --name glpi --hostname glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 --env "VERSION_GLPI=9.1.6" -d samuelantonio512/glpi
 ```
 
-#Implantar com docker-compose
+# Implantar com docker-compose
 
 ### Implante sem dados de persistência (para teste rápido)
 
@@ -81,7 +81,7 @@ services:
       - "8080:80"
 ```
 
-## Deploy a specific release
+### Deploy a specific release
 
 ```yaml
 version: "3.8"
