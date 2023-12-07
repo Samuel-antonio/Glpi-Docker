@@ -1,8 +1,9 @@
 #On choisit une debian
 FROM debian:11.6
 
-LABEL org.opencontainers.image.authors="samuel_neto17@hotmail.com"
+LABEL org.opencontainers.image.authors="Samuel Antônio"
 
+LABEL maintainer="samuel_neto17@hotmail.com"
 
 #Ne pas poser de question à l'installation
 ENV DEBIAN_FRONTEND noninteractive
@@ -44,6 +45,8 @@ vim \
 COPY glpi-start.sh /opt/
 RUN chmod +x /opt/glpi-start.sh
 ENTRYPOINT ["/opt/glpi-start.sh"]
+WORKDIR /var/www/html
+
 
 #Exposition des ports
 EXPOSE 80 443
