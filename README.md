@@ -12,7 +12,7 @@ Mais informações no 📄[Documentação](https://glpi-install.readthedocs.io/e
 | tech/tech          	| technical account 	|
 | normal/normal      	| "normal" account  	|
 | post-only/postonly 	| post-only account 	|
-|___________________________________________|
+
 # Implantar com CLI
 
 ### Deploy GLPI 
