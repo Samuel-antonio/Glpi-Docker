@@ -20,8 +20,8 @@ jobs:
       run: |
         docker build \
           --file Dockerfile \
-          --tag my-image-name:$(date +%s) \
-          --tag my-image-name:latest \
+          --tag glpi:$(date +%s) \
+          --tag samuelantonio512/glpi \
           .
         echo "Docker image built and tagged."
 
@@ -32,5 +32,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker Image
-      run: docker push my-image-name:$(date +%s) && docker push my-image-name:latest
+      run: docker push glpi:$(date +%s) && docker push samuelantonio512/glpi
 
