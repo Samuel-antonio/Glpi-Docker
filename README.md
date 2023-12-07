@@ -104,7 +104,7 @@ services:
     container_name : glpi
     hostname: glpi
     environment:
-      - VERSION_GLPI=9.5.6
+      - VERSION_GLPI=10.0.7
     ports:
       - "8080:80"
 ```
