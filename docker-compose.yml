@@ -18,12 +18,12 @@ services:
     container_name : glpi
     hostname: glpi
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - /var/www/html/glpi/:/var/www/html/glpi
     environment:
-      - TIMEZONE=Europe/Brussels
+      - TIMEZONE=America/Sao_Paulo
     restart: always
     
