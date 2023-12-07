@@ -2,6 +2,8 @@
 
 Instale e execute uma instância GLPI com docker
 
+As imagens abaixo irá rodar na versão 10.0 a 10.0.7
+
 ## Contas padrão
 
 Mais informações na 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
