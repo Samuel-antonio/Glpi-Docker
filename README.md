@@ -2,17 +2,17 @@
 
 Instale e execute uma instância GLPI com docker
 
-## Default accounts
+## Contas padrão
 
-More info in the 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
-
+Mais informações no 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
+ ___________________________________________
 | Usuário/Senha     	|      Função        	|
 |---------------------|---------------------|
 | glpi/glpi          	| admin account     	|
 | tech/tech          	| technical account 	|
 | normal/normal      	| "normal" account  	|
 | post-only/postonly 	| post-only account 	|
-
+|___________________________________________|
 # Implantar com CLI
 
 ### Deploy GLPI 
@@ -26,17 +26,17 @@ docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glp
 docker run --name glpi --link yourdatabase:mariadb -p 8080:80 -d samuelantonio512/glpi
 ```
 
-## Deploy GLPI with database and persistence data
+## Implante GLPI com banco de dados e dados de persistência
 
-For an usage on production environnement or daily usage, it's recommanded to use container with volumes to persistent data.
+Para uso em ambiente de produção ou uso diário, é recomendado utilizar container com volumes para dados persistentes.
 
-* First, create MariaDB container with volume
+* Primeiro, crie o contêiner MariaDB com volume
 
 ```sh
 docker run --name mariadb -e MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5 -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi --volume /var/lib/mysql:/var/lib/mysql -d mariadb:10.7
 ```
 
-* Then, create GLPI container with volume and link MariaDB container
+* Em seguida, crie o contêiner GLPI com volume e vincule o contêiner MariaDB
 
 ```sh
 docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi
