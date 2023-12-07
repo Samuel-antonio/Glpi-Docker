@@ -17,13 +17,13 @@ More info in the 📄[Documentação](https://glpi-install.readthedocs.io/en/lat
 
 ### Deploy GLPI 
 ```sh
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD=diouxx -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi -d mariadb:10.7
-docker run --name glpi --link mariadb:mariadb -p 80:80 -d diouxx/glpi
+docker run --name mariadb -e MARIADB_ROOT_PASSWORD=8Yqvj/W]!Hd2gKku -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5 -d mariadb:10.7
+docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi
 ```
 
 ## Deploy GLPI with existing database
 ```sh
-docker run --name glpi --link yourdatabase:mariadb -p 80:80 -d diouxx/glpi
+docker run --name glpi --link yourdatabase:mariadb -p 8080:80 -d samuelantonio512/glpi
 ```
 
 ## Deploy GLPI with database and persistence data
@@ -33,13 +33,13 @@ For an usage on production environnement or daily usage, it's recommanded to use
 * First, create MariaDB container with volume
 
 ```sh
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD=diouxx -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi --volume /var/lib/mysql:/var/lib/mysql -d mariadb:10.7
+docker run --name mariadb -e MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5 -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi --volume /var/lib/mysql:/var/lib/mysql -d mariadb:10.7
 ```
 
 * Then, create GLPI container with volume and link MariaDB container
 
 ```sh
-docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 80:80 -d diouxx/glpi
+docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi
 ```
 
 Enjoy :)
@@ -49,7 +49,7 @@ Default, docker run will use the latest release of GLPI.
 For an usage on production environnement, it's recommanded to set specific release.
 Here an example for release 9.1.6 :
 ```sh
-docker run --name glpi --hostname glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 80:80 --env "VERSION_GLPI=9.1.6" -d diouxx/glpi
+docker run --name glpi --hostname glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 --env "VERSION_GLPI=9.1.6" -d samuelantonio512/glpi
 ```
 
 # Deploy with docker-compose
@@ -66,17 +66,17 @@ services:
     hostname: mariadb
     environment:
       - MARIADB_ROOT_PASSWORD=password
-      - MARIADB_DATABASE=glpidb
-      - MARIADB_USER=glpi_user
-      - MARIADB_PASSWORD=glpi
+      - MARIADB_DATABASE=glpi
+      - MARIADB_USER=glpi
+      - MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
 
 #GLPI Container
   glpi:
-    image: diouxx/glpi
+    image: samuelantonio512/glpi
     container_name : glpi
     hostname: glpi
     ports:
-      - "80:80"
+      - "8080:80"
 ```
 
 ## Deploy a specific release
@@ -91,20 +91,20 @@ services:
     container_name: mariadb
     hostname: mariadb
     environment:
-      - MARIADB_ROOT_PASSWORD=password
-      - MARIADB_DATABASE=glpidb
-      - MARIADB_USER=glpi_user
-      - MARIADB_PASSWORD=glpi
+      - MARIADB_ROOT_PASSWORD=8Yqvj/W]!Hd2gKku
+      - MARIADB_DATABASE=glpi
+      - MARIADB_USER=glpi
+      - MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
 
 #GLPI Container
   glpi:
-    image: diouxx/glpi
+    image: samuelantonio512/glpi
     container_name : glpi
     hostname: glpi
     environment:
       - VERSION_GLPI=9.5.6
     ports:
-      - "80:80"
+      - "8080:80"
 ```
 
 ## Deploy with persistence data
@@ -120,10 +120,10 @@ You can modify **_mariadb.env_** to personalize settings like :
 
 ### mariadb.env
 ```
-MARIADB_ROOT_PASSWORD=diouxx
-MARIADB_DATABASE=glpidb
-MARIADB_USER=glpi_user
-MARIADB_PASSWORD=glpi
+MARIADB_ROOT_PASSWORD=8Yqvj/W]!Hd2gKku
+MARIADB_DATABASE=glpi
+MARIADB_USER=glpi
+MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
 ```
 
 ### docker-compose .yml
@@ -144,11 +144,11 @@ services:
 
 #GLPI Container
   glpi:
-    image: diouxx/glpi
+    image: samuelantonio512/glpi
     container_name : glpi
     hostname: glpi
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -171,7 +171,7 @@ If you need to set timezone for Apache and PHP
 
 From commande line
 ```sh
-docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 80:80 --env "TIMEZONE=Europe/Brussels" -d diouxx/glpi
+docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=Europe/Brussels" -d samuelantonio512/glpi
 ```
 
 From docker-compose
@@ -179,5 +179,5 @@ From docker-compose
 Modify this settings
 ```yaml
 environment:
-     TIMEZONE=Europe/Brussels
+     TIMEZONE=America/Sao_Paulo
 ```

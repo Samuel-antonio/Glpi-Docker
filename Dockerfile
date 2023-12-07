@@ -36,6 +36,7 @@ libldap-common \
 libsasl2-2 \
 libsasl2-modules \
 libsasl2-modules-db \
+vim \
 && rm -rf /var/lib/apt/lists/*
 
 #Copie et execution du script pour l'installation et l'initialisation de GLPI
