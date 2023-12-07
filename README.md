@@ -81,7 +81,7 @@ services:
       - "8080:80"
 ```
 
-### Deploy a specific release
+### Implantar uma versão específica
 
 ```yaml
 version: "3.8"
@@ -156,7 +156,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/www/html/glpi/:/var/www/html/glpi
     environment:
-      - TIMEZONE=Europe/Brussels
+      - TIMEZONE=America/Sao_Paulo
     restart: always
 ```
 
@@ -173,7 +173,7 @@ Se você precisar definir o fuso horário para Apache e PHP
 
 Da linha de comando
 ```sh
-docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=Europe/Brussels" -d samuelantonio512/glpi
+docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=America/Sao_Paulo" -d samuelantonio512/glpi
 ```
 
 Do docker-compose
