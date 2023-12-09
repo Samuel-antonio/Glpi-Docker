@@ -1,54 +1,60 @@
-#On choisit une debian
+# Escolhendo uma imagem Debian
 FROM debian:11.6
 
-LABEL org.opencontainers.image.authors="Samuel Antônio"
+LABEL org.opencontainers.image.authors="Samuel Antônio" \
+      maintainer="samuel_neto17@hotmail.com"
 
-LABEL maintainer="samuel_neto17@hotmail.com"
-
-#Ne pas poser de question à l'installation
+# Não interromper a instalação para fazer perguntas
 ENV DEBIAN_FRONTEND noninteractive
 
-#Installation d'apache et de php8.3 avec extension
-RUN apt update \
-&& apt install --yes ca-certificates apt-transport-https lsb-release wget curl \
-&& curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \ 
-&& sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
-&& apt update \
-&& apt install --yes --no-install-recommends \
-apache2 \
-php8.3 \
-php8.3-mysql \
-php8.3-ldap \
-php8.3-xmlrpc \
-php8.3-imap \
-php8.3-curl \
-php8.3-gd \
-php8.3-mbstring \
-php8.3-xml \
-php-cas \
-php8.3-intl \
-php8.3-zip \
-php8.3-bz2 \
-php8.3-redis \
-cron \
-jq \
-libldap-2.4-2 \
-libldap-common \
-libsasl2-2 \
-libsasl2-modules \
-libsasl2-modules-db \
-vim \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
+# Argumento para a versão do PHP
+ARG PHP_VERSION=8.3
 
-#Copie et execution du script pour l'installation et l'initialisation de GLPI
+# Atualizar e instalar dependências
+RUN apt-get update && \
+    apt-get install -y \
+       ca-certificates \
+       apt-transport-https \
+       lsb-release \
+       wget \
+       curl && \
+    curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+       apache2 \
+       php${PHP_VERSION} \
+       php${PHP_VERSION}-mysql \
+       php${PHP_VERSION}-ldap \
+       php${PHP_VERSION}-xmlrpc \
+       php${PHP_VERSION}-imap \
+       php${PHP_VERSION}-curl \
+       php${PHP_VERSION}-gd \
+       php${PHP_VERSION}-mbstring \
+       php${PHP_VERSION}-xml \
+       php-cas \
+       php${PHP_VERSION}-intl \
+       php${PHP_VERSION}-zip \
+       php${PHP_VERSION}-bz2 \
+       php${PHP_VERSION}-redis \
+       cron \
+       jq \
+       libldap-2.4-2 \
+       libldap-common \
+       libsasl2-2 \
+       libsasl2-modules \
+       libsasl2-modules-db \
+       vim && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar e executar o script de inicialização para instalação e inicialização do GLPI
 COPY glpi-start.sh /opt/
 RUN chmod +x /opt/glpi-start.sh
+
+# Configuração do ponto de entrada
 ENTRYPOINT ["/opt/glpi-start.sh"]
 WORKDIR /var/www/html
 
-
-#Exposition des ports
+# Exposição das portas
 EXPOSE 80 443
-
-

@@ -1,7 +1,8 @@
 # Introdução
 
-Instale e execute uma instância GLPI 10.0.10 com docker
+Instale e execute uma instância GLPI com docker
 
+O código funcionará na versão 10.0 a 10.0.7
 
 ## Contas padrão
 
@@ -18,13 +19,13 @@ Mais informações na 📄[Documentação](https://glpi-install.readthedocs.io/e
 
 ### Deploy GLPI 
 ```sh
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD=c -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5 -d mariadb:10.11
-docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi:10.0.10
+docker run --name mariadb -e MARIADB_ROOT_PASSWORD=c -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5 -d mariadb:10.7
+docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi
 ```
 
 ### Implante GLPI com banco de dados existente
 ```sh
-docker run --name glpi --link yourdatabase:mariadb -p 8080:80 -d samuelantonio512/glpi:10.0.10
+docker run --name glpi --link yourdatabase:mariadb -p 8080:80 -d samuelantonio512/glpi
 ```
 
 ## Implante GLPI com banco de dados e dados de persistência
@@ -34,13 +35,24 @@ Para uso em ambiente de produção ou uso diário, é recomendado utilizar conta
 * Primeiro, crie o contêiner MariaDB com volume
 
 ```sh
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5 -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi --volume /var/lib/mysql:/var/lib/mysql -d mariadb:10.11
+docker run --name mariadb -e MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5 -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi --volume /var/lib/mysql:/var/lib/mysql -d mariadb:10.7
 ```
 
 * Em seguida, crie o contêiner GLPI com volume e vincule o contêiner MariaDB
 
 ```sh
-docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi:10.0.10
+docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi
+```
+
+
+
+### Implante uma versão específica do GLPI
+Padrão, docker run usará a versão mais recente do GLPI.
+Para uso em ambiente de produção, é recomendado definir uma versão específica.
+Aqui está um exemplo para a versão 9.1.6:
+
+```sh
+docker run --name glpi --hostname glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 --env "VERSION_GLPI=9.1.6" -d samuelantonio512/glpi
 ```
 
 # Implantar com docker-compose
@@ -53,7 +65,7 @@ version: "3.8"
 services:
 #MariaDB Container
   mariadb:
-    image: mariadb:10.11
+    image: mariadb:10.7
     container_name: mariadb
     hostname: mariadb
     environment:
@@ -64,13 +76,40 @@ services:
 
 #GLPI Container
   glpi:
-    image: samuelantonio512/glpi:10.0.10
+    image: samuelantonio512/glpi
     container_name : glpi
     hostname: glpi
     ports:
       - "8080:80"
 ```
 
+### Implantar uma versão específica
+
+```yaml
+version: "3.8"
+
+services:
+#MariaDB Container
+  mariadb:
+    image: mariadb:10.7
+    container_name: mariadb
+    hostname: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=8Yqvj/W]!Hd2gKku
+      - MARIADB_DATABASE=glpi
+      - MARIADB_USER=glpi
+      - MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
+
+#GLPI Container
+  glpi:
+    image: samuelantonio512/glpi
+    container_name : glpi
+    hostname: glpi
+    environment:
+      - VERSION_GLPI=10.0.7
+    ports:
+      - "8080:80"
+```
 
 ## Implante com dados de persistência
 
@@ -98,7 +137,7 @@ version: "3.2"
 services:
 #MariaDB Container
   mariadb:
-    image: mariadb:10.11
+    image: mariadb:10.7
     container_name: mariadb
     hostname: mariadb
     volumes:
@@ -109,7 +148,7 @@ services:
 
 #GLPI Container
   glpi:
-    image: samuelantonio512/glpi:10.0.10
+    image: samuelantonio512/glpi
     container_name : glpi
     hostname: glpi
     ports:
@@ -136,7 +175,7 @@ Se você precisar definir o fuso horário para Apache e PHP
 
 Da linha de comando
 ```sh
-docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=America/Sao_Paulo" -d samuelantonio512/glpi:10.0.10
+docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=America/Sao_Paulo" -d samuelantonio512/glpi
 ```
 
 Do docker-compose
