@@ -56,6 +56,9 @@ RUN apt-get update && \
 ENV TZ=${TIMEZONE}
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# Adicionar configuração de segurança para sessões
+RUN echo "session.cookie_httponly = on" >> /etc/php/${PHP_VERSION}/apache2/php.ini
+
 # Copiar e executar o script de inicialização para instalação e inicialização do GLPI
 COPY glpi-start.sh /opt/
 RUN chmod +x /opt/glpi-start.sh
