@@ -19,12 +19,12 @@ Mais informações na 📄[Documentação](https://glpi-install.readthedocs.io/e
 ### Deploy GLPI 
 ```sh
 docker run --name mariadb -e MARIADB_ROOT_PASSWORD=c -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5 -d mariadb:10.11
-docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi
+docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi:10.0.10
 ```
 
 ### Implante GLPI com banco de dados existente
 ```sh
-docker run --name glpi --link yourdatabase:mariadb -p 8080:80 -d samuelantonio512/glpi
+docker run --name glpi --link yourdatabase:mariadb -p 8080:80 -d samuelantonio512/glpi:10.0.10
 ```
 
 ## Implante GLPI com banco de dados e dados de persistência
@@ -40,7 +40,7 @@ docker run --name mariadb -e MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5 -e MARIADB_D
 * Em seguida, crie o contêiner GLPI com volume e vincule o contêiner MariaDB
 
 ```sh
-docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi
+docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi:10.0.10
 ```
 
 # Implantar com docker-compose
@@ -64,7 +64,7 @@ services:
 
 #GLPI Container
   glpi:
-    image: samuelantonio512/glpi
+    image: samuelantonio512/glpi:10.0.10
     container_name : glpi
     hostname: glpi
     ports:
@@ -109,7 +109,7 @@ services:
 
 #GLPI Container
   glpi:
-    image: samuelantonio512/glpi
+    image: samuelantonio512/glpi:10.0.10
     container_name : glpi
     hostname: glpi
     ports:
@@ -136,7 +136,7 @@ Se você precisar definir o fuso horário para Apache e PHP
 
 Da linha de comando
 ```sh
-docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=America/Sao_Paulo" -d samuelantonio512/glpi
+docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=America/Sao_Paulo" -d samuelantonio512/glpi:10.0.10
 ```
 
 Do docker-compose

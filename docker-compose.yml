@@ -14,7 +14,7 @@ services:
 
 #GLPI Container
   glpi:
-    image: ssamuelantonio512/glpi
+    image: samuelantonio512/glpi:10.0.10
     container_name : glpi
     hostname: glpi
     ports:
