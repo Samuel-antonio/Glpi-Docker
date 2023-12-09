@@ -68,8 +68,9 @@ environment:
   TIMEZONE=America/Sao_Paulo
 ```
 
+
 Para mais detalhes, consulte a 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
 
-# Este README simplificado enfoca a versão 10.0.10 do GLPI e fornece comandos diretos para implantação com Docker ou Docker Compose. Lembre-se de substituir "sua_senha_root" e "sua_senha_glpi" pelas senhas desejadas.
+### Este README simplificado enfoca a versão 10.0.10 do GLPI e fornece comandos diretos para implantação com Docker ou Docker Compose. Lembre-se de substituir "sua_senha_root" e "sua_senha_glpi" pelas senhas desejadas.
 
 
