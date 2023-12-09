@@ -32,5 +32,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker Image
-      run: docker push glpi:$(date +%s) && docker push samuelantonio512/glpi
+      run: docker push glpi:$(date +%s) && docker push samuelantonio512/glpi:10.0.10
 
