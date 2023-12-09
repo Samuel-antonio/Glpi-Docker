@@ -1,188 +1,75 @@
-# Introdução
+# GLPI com Docker
 
-Instale e execute uma instância GLPI com docker
+Este repositório facilita a instalação e execução do GLPI usando Docker. O código é compatível com a versão 10.0.10 do GLPI.
 
-O código funcionará na versão 10.0 a 10.0.7
+## Contas Padrão
 
-## Contas padrão
+| Usuário/Senha | Função              |
+|---------------|---------------------|
+| glpi/glpi      | Conta de administrador  |
+| tech/tech      | Conta técnica       |
+| normal/normal  | Conta "normal"      |
+| post-only/postonly | Conta de postagem apenas |
 
-Mais informações na 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
- ___________________________________________
-| Usuário/Senha     	|      Função        	|
-|---------------------|---------------------|
-| glpi/glpi          	| admin account     	|
-| tech/tech          	| technical account 	|
-| normal/normal      	| "normal" account  	|
-| post-only/postonly 	| post-only account 	|
-
-# Implantar com CLI
+## Implantação com CLI
 
 ### Deploy GLPI 
 ```sh
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD=c -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5 -d mariadb:10.7
-docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi
+docker run --name mariadb -e MARIADB_ROOT_PASSWORD=sua_senha_root -e MARIADB_DATABASE=glpi -e MARIADB_USER=glpi -e MARIADB_PASSWORD=sua_senha_glpi -d mariadb:10.7
+docker run --name glpi --link mariadb:mariadb -p 8080:80 -d samuelantonio512/glpi:10.0.10
 ```
-
-### Implante GLPI com banco de dados existente
+## Implante GLPI com banco de dados existente
 ```sh
-docker run --name glpi --link yourdatabase:mariadb -p 8080:80 -d samuelantonio512/glpi
+docker run --name glpi --link seu_banco_de_dados:mariadb -p 8080:80 -d samuelantonio512/glpi:10.0.10
 ```
-
-## Implante GLPI com banco de dados e dados de persistência
-
-Para uso em ambiente de produção ou uso diário, é recomendado utilizar container com volumes para dados persistentes.
-
-* Primeiro, crie o contêiner MariaDB com volume
+# Implantação com Docker Compose
 
 ```sh
-docker run --name mariadb -e MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5 -e MARIADB_DATABASE=glpidb -e MARIADB_USER=glpi_user -e MARIADB_PASSWORD=glpi --volume /var/lib/mysql:/var/lib/mysql -d mariadb:10.7
-```
-
-* Em seguida, crie o contêiner GLPI com volume e vincule o contêiner MariaDB
-
-```sh
-docker run --name glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 -d samuelantonio512/glpi
-```
-
-
-
-### Implante uma versão específica do GLPI
-Padrão, docker run usará a versão mais recente do GLPI.
-Para uso em ambiente de produção, é recomendado definir uma versão específica.
-Aqui está um exemplo para a versão 9.1.6:
-
-```sh
-docker run --name glpi --hostname glpi --link mariadb:mariadb --volume /var/www/html/glpi:/var/www/html/glpi -p 8080:80 --env "VERSION_GLPI=9.1.6" -d samuelantonio512/glpi
-```
-
-# Implantar com docker-compose
-
-### Implante sem dados de persistência (para teste rápido)
-
-```yaml
 version: "3.8"
 
 services:
-#MariaDB Container
   mariadb:
     image: mariadb:10.7
     container_name: mariadb
     hostname: mariadb
     environment:
-      - MARIADB_ROOT_PASSWORD=Uqn)agJ(&Hb*U8#5
+      - MARIADB_ROOT_PASSWORD=sua_senha_root
       - MARIADB_DATABASE=glpi
       - MARIADB_USER=glpi
-      - MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
+      - MARIADB_PASSWORD=sua_senha_glpi
 
-#GLPI Container
   glpi:
-    image: samuelantonio512/glpi
-    container_name : glpi
+    image: samuelantonio512/glpi:10.0.10
+    container_name: glpi
     hostname: glpi
     ports:
       - "8080:80"
+
 ```
-
-### Implantar uma versão específica
-
-```yaml
-version: "3.8"
-
-services:
-#MariaDB Container
-  mariadb:
-    image: mariadb:10.7
-    container_name: mariadb
-    hostname: mariadb
-    environment:
-      - MARIADB_ROOT_PASSWORD=8Yqvj/W]!Hd2gKku
-      - MARIADB_DATABASE=glpi
-      - MARIADB_USER=glpi
-      - MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
-
-#GLPI Container
-  glpi:
-    image: samuelantonio512/glpi
-    container_name : glpi
-    hostname: glpi
-    environment:
-      - VERSION_GLPI=10.0.7
-    ports:
-      - "8080:80"
-```
-
-## Implante com dados de persistência
-
-Para implantar com docker compose, você usa os arquivos *docker-compose.yml* e *mariadb.env*.
-Você pode modificar **_mariadb.env_** para personalizar configurações como:
-
-* MariaDB root password
-* GLPI database
-* GLPI user database
-* GLPI user password
-
-
-### mariadb.env
-```
-MARIADB_ROOT_PASSWORD=8Yqvj/W]!Hd2gKku
-MARIADB_DATABASE=glpi
-MARIADB_USER=glpi
-MARIADB_PASSWORD=Uqn)agJ(&Hb*U8#5
-```
-
-### docker-compose .yml
-```yaml
-version: "3.2"
-
-services:
-#MariaDB Container
-  mariadb:
-    image: mariadb:10.7
-    container_name: mariadb
-    hostname: mariadb
-    volumes:
-      - /var/lib/mysql:/var/lib/mysql
-    env_file:
-      - ./mariadb.env
-    restart: always
-
-#GLPI Container
-  glpi:
-    image: samuelantonio512/glpi
-    container_name : glpi
-    hostname: glpi
-    ports:
-      - "8080:80"
-    volumes:
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-      - /var/www/html/glpi/:/var/www/html/glpi
-    environment:
-      - TIMEZONE=America/Sao_Paulo
-    restart: always
-```
-
-Para implantar, basta executar o seguinte comando no mesmo diretório dos arquivos
+### Para implantar, execute:
 
 ```sh
 docker-compose up -d
 ```
 
-# Variáveis ​​de ambiente
+# Variáveis de Ambiente
 
-### FUSO HORÁRIO
-Se você precisar definir o fuso horário para Apache e PHP
+## Fuso Horário
 
-Da linha de comando
+### Se precisar definir o fuso horário para Apache e PHP:
+
 ```sh
-docker run --name glpi --hostname glpi --link mariadb:mariadb --volumes-from glpi-data -p 8080:80 --env "TIMEZONE=America/Sao_Paulo" -d samuelantonio512/glpi
+docker run --name glpi --hostname glpi --link mariadb:mariadb -p 8080:80 --env "TIMEZONE=America/Sao_Paulo" -d samuelantonio512/glpi:10.0.10
+
 ```
 
-Do docker-compose
-
-Modifique estas configurações
-```yaml
+```sh
 environment:
-     TIMEZONE=America/Sao_Paulo
+  TIMEZONE=America/Sao_Paulo
 ```
+
+Para mais detalhes, consulte a 📄[Documentação](https://glpi-install.readthedocs.io/en/latest/install/wizard.html#end-of-installation)
+
+# Este README simplificado enfoca a versão 10.0.10 do GLPI e fornece comandos diretos para implantação com Docker ou Docker Compose. Lembre-se de substituir "sua_senha_root" e "sua_senha_glpi" pelas senhas desejadas.
+
 

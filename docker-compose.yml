@@ -20,11 +20,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
       - /var/www/html/glpi/:/var/www/html/glpi
       - ./apache_logs:/var/log/apache2
-    environment:
-      - TIMEZONE=America/Sao_Paulo
     restart: always
     
