@@ -6,8 +6,8 @@
 
 if [[ -z "${TIMEZONE}" ]]; then echo "TIMEZONE is unset"; 
 else 
-echo "date.timezone = \"$TIMEZONE\"" > /etc/php/8.1/apache2/conf.d/timezone.ini;
-echo "date.timezone = \"$TIMEZONE\"" > /etc/php/8.1/cli/conf.d/timezone.ini;
+echo "date.timezone = \"$TIMEZONE\"" > /etc/php/8.3/apache2/conf.d/timezone.ini;
+echo "date.timezone = \"$TIMEZONE\"" > /etc/php/8.3/cli/conf.d/timezone.ini;
 fi
 
 SRC_GLPI=$(curl -s https://api.github.com/repos/glpi-project/glpi/releases/tags/${VERSION_GLPI} | jq .assets[0].browser_download_url | tr -d \")
@@ -41,8 +41,8 @@ LOCAL_GLPI_MAJOR_VERSION=$(echo $LOCAL_GLPI_VERSION | cut -d. -f1)
 ## Remove dots from version string
 LOCAL_GLPI_VERSION_NUM=${LOCAL_GLPI_VERSION//./}
 
-## Target value is GLPI 10.0.7
-TARGET_GLPI_VERSION="10.0.7"
+## Target value is GLPI 10.0.10
+TARGET_GLPI_VERSION="10.0.10"
 TARGET_GLPI_VERSION_NUM=${TARGET_GLPI_VERSION//./}
 TARGET_GLPI_MAJOR_VERSION=$(echo $TARGET_GLPI_VERSION | cut -d. -f1)
 

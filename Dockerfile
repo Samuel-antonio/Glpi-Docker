@@ -8,7 +8,7 @@ LABEL maintainer="samuel_neto17@hotmail.com"
 #Ne pas poser de question à l'installation
 ENV DEBIAN_FRONTEND noninteractive
 
-#Installation d'apache et de php8.1 avec extension
+#Installation d'apache et de php8.3 avec extension
 RUN apt update \
 && apt install --yes ca-certificates apt-transport-https lsb-release wget curl \
 && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \ 
@@ -16,20 +16,20 @@ RUN apt update \
 && apt update \
 && apt install --yes --no-install-recommends \
 apache2 \
-php8.1 \
-php8.1-mysql \
-php8.1-ldap \
-php8.1-xmlrpc \
-php8.1-imap \
-php8.1-curl \
-php8.1-gd \
-php8.1-mbstring \
-php8.1-xml \
+php8.3 \
+php8.3-mysql \
+php8.3-ldap \
+php8.3-xmlrpc \
+php8.3-imap \
+php8.3-curl \
+php8.3-gd \
+php8.3-mbstring \
+php8.3-xml \
 php-cas \
-php8.1-intl \
-php8.1-zip \
-php8.1-bz2 \
-php8.1-redis \
+php8.3-intl \
+php8.3-zip \
+php8.3-bz2 \
+php8.3-redis \
 cron \
 jq \
 libldap-2.4-2 \
