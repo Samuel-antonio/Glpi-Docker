@@ -3,7 +3,7 @@ version: "3.2"
 services:
 #MariaDB Container
   mariadb:
-    image: mariadb:10.7
+    image: mariadb:10.10
     container_name: mariadb
     hostname: mariadb
     volumes:
@@ -14,7 +14,7 @@ services:
 
 #GLPI Container
   glpi:
-    image: ssamuelantonio512/glpi
+    image: samuelantonio512/glpi:10.0.10
     container_name : glpi
     hostname: glpi
     ports:

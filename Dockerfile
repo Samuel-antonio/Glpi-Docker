@@ -10,6 +10,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # Argumento para a versão do PHP
 ARG PHP_VERSION=8.3
 
+# Argumento para o fuso horário
+ARG TIMEZONE=America/Sao_Paulo
+
 # Atualizar e instalar dependências
 RUN apt-get update && \
     apt-get install -y \
@@ -17,7 +20,8 @@ RUN apt-get update && \
        apt-transport-https \
        lsb-release \
        wget \
-       curl && \
+       curl \
+       tzdata && \
     curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list && \
     apt-get update && \
@@ -47,6 +51,10 @@ RUN apt-get update && \
        vim && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Configurar o fuso horário
+ENV TZ=${TIMEZONE}
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Copiar e executar o script de inicialização para instalação e inicialização do GLPI
 COPY glpi-start.sh /opt/
